@@ -1,0 +1,5 @@
+1. send an authorization request. /oauth/login.
+2. authorization is granted with code. /oauth/callback/code.
+3. exchange the code for the access token.
+4. store the token in a cookie, or local storage in the client.
+5. use the token to access the REST API and log in to the application.
