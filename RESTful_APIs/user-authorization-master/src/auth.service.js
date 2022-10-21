@@ -9,20 +9,21 @@ function getGithubAccessToken(code, done) {
     client_secret: config.CLIENT_SECRET,
     code: code
   };
-  const httpsAgent = new https.Agent({ rejectUnauthorized: false });
   const opts = {
     headers: { accept: 'application/json' },
-    httpsAgent
   };
-  console.log('body: \n', body);
-  console.log('opts: \n', opts);
   axios.post("https://github.com/login/oauth/access_token", body, opts)
        .then((token) => {
-         done(null, token);
+         if(token && token.data && token.data.access_token) {
+           done(null, token.data.access_token);
+         } else if(token && token.data && token.data.error) {
+           done(token.data.error);
+         } else {
+           throw new Error('Inconsistent authentication data!');
+         }
        })
        .catch((err) => {
-         console.log('err: ', err.response.data);
-         done({error: err.response.data});
+         done(err);
        });
 }
 
