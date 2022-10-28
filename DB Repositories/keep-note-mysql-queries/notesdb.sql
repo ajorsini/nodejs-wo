@@ -85,83 +85,47 @@ CREATE TABLE IF NOT EXISTS UserNote (
 
 -- Insert the rows into the created tables (Note, Category, Reminder, User, UserNote, NoteReminder and NoteCategory)
 -- Notes
+WITH inputValues (note_title, note_content, note_status, note_creation_date) AS (
+	VALUES
+		('Penas y Dolores', 'Sobre los dolores y las penas', 'not-started', '2021-12-20 21:30'),
+    ('Manos Arriba', 'Arriba las manos', 'in-progress', '2022-01-15 10:15'),
+    ('Matematica', 'Veamos series de Fourier', 'in-progress', '2022-02-12 10:55'),
+    ('Fisica', 'Quantum Theory', 'cancelled', '2022-04-01 22:03'),
+    ('Estadistica', 'Tchevichev distribution', 'completed', '2022-08-01 9:47')
+)
 INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-       VALUES ('Penas y Dolores', 'Sobre los dolores y las penas', 'not-started', '2021-12-20 21:30');
-INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-       VALUES ('Manos Arriba', 'Arriba las manos', 'in-progress', '2022-01-15 10:15');
-INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-       VALUES ('Matematica', 'Veamos series de Fourier', 'in-progress', '2022-02-12 10:55');
-INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-       VALUES ('Fisica', 'Quantum Theory', 'cancelled', '2022-04-01 22:03');
-INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-       VALUES ('Estadistica', 'Tchevichev distribution', 'completed', '2022-08-01 9:47');
+  SELECT note_title, note_content, note_status, note_creation_date FROM inputValues;
 -- Users
 INSERT INTO user (user_name, user_added_date, user_password, user_mobile)
-       VALUES ('Oscar Ricci', '2022-10-22', 'secreto123', '11-2345-6789');
-INSERT INTO user (user_name, user_added_date, user_password, user_mobile)
-       VALUES ('Juan Petrucci', '2020-12-11', 'secreto234', '12-6789-4321');
-INSERT INTO user (user_name, user_added_date, user_password, user_mobile)
-       VALUES ('Ricardo Massaglia', '2021-11-01', 'secreto345', '35-8765-9021');
-INSERT INTO user (user_name, user_added_date, user_password, user_mobile)
-       VALUES ('Bernardo Uzquieva', '2019-07-05', 'secreto678', '23-7896-3214');
-INSERT INTO user (user_name, user_added_date, user_password, user_mobile)
-       VALUES ('Ermenegildo Damberg', '2019-05-19', 'secreto790', '58-9786-1456');
+       VALUES ('Oscar Ricci', '2022-10-22', 'secreto123', '11-2345-6789'),
+              ('Juan Petrucci', '2020-12-11', 'secreto234', '12-6789-4321'),
+              ('Ricardo Massaglia', '2021-11-01', 'secreto345', '35-8765-9021'),
+              ('Bernardo Uzquieva', '2019-07-05', 'secreto678', '23-7896-3214'),
+              ('Ermenegildo Damberg', '2019-05-19', 'secreto790', '58-9786-1456');
 -- Category
 INSERT INTO category (category_name, category_descr, category_creation_date, category_creator)
-       VALUES ('Ciencia', 'temas científicos que no le interesan a nadie', '2019-08-19', 5);
-INSERT INTO category (category_name, category_descr, category_creation_date, category_creator)
-       VALUES ('Legales', 'temas legales que favorecen al más fuerte', '2022-04-21', 1);
-INSERT INTO category (category_name, category_descr, category_creation_date, category_creator)
-       VALUES ('Sentimientos', 'Quien no ha sufrido alguna vez', '2021-02-13', 1);
-INSERT INTO category (category_name, category_descr, category_creation_date, category_creator)
-       VALUES ('Trabajo', 'Qué dolor...', '2022-04-21', 3);
-INSERT INTO category (category_name, category_descr, category_creation_date, category_creator)
-       VALUES ('Deportes', 'En el centro del universo', '2022-07-21', 4);
+       VALUES ('Ciencia', 'temas científicos que no le interesan a nadie', '2019-08-19', 5),
+              ('Legales', 'temas legales que favorecen al más fuerte', '2022-04-21', 1),
+              ('Sentimientos', 'Quien no ha sufrido alguna vez', '2021-02-13', 1),
+              ('Trabajo', 'Qué dolor...', '2022-04-21', 3),
+              ('Deportes', 'En el centro del universo', '2022-07-21', 4);
 -- Reminder
 INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
-       VALUES ('No olvidar', 'La memoria suele fallar', 'first', '2021-06-12', 5);
-INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
-       VALUES ('Pastilla Roja', 'El desmemoriado se acordo', 'second', '2022-04-08', 1);
-INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
-       VALUES ('Verde Verderol', 'Simpre verde, se lo olvido', 'due-date', '2020-01-30', 4);
-INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
-       VALUES ('No sense', 'Lo mas concreto', 'third', '2021-01-02', 2);
-INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
-       VALUES ('Quítalo', 'Sin peligro de ezquizer', 'off', '2021-05-10', 3);
+       VALUES ('No olvidar', 'La memoria suele fallar', 'first', '2021-06-12', 5),
+              ('Pastilla Roja', 'El desmemoriado se acordo', 'second', '2022-04-08', 1),
+              ('Verde Verderol', 'Simpre verde, se lo olvido', 'due-date', '2020-01-30', 4),
+              ('No sense', 'Lo mas concreto', 'third', '2021-01-02', 2),
+              ('Quítalo', 'Sin peligro de ezquizer', 'off', '2021-05-10', 3);
 
 -- NoteCategory
-INSERT INTO NoteCategory (note_id, category_id) VALUES (1, 5);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (2, 3);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (3, 1);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (4, 2);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (5, 3);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (1, 3);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (2, 4);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (3, 3);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (4, 1);
-INSERT INTO NoteCategory (note_id, category_id) VALUES (5, 2);
+INSERT INTO NoteCategory (note_id, category_id)
+  VALUES (1, 5), (2, 3), (3, 1), (4, 2), (5, 3), (1, 3), (2, 4), (3, 3), (4, 1), (5, 2);
 -- NoteReminder
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (1, 5);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (2, 3);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (3, 1);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (4, 2);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (5, 3);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (1, 3);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (2, 4);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (3, 3);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (4, 1);
-INSERT INTO NoteReminder (note_id, reminder_id) VALUES (5, 2);
+INSERT INTO NoteReminder (note_id, reminder_id)
+  VALUES (1, 5), (2, 3), (3, 1), (4, 2), (5, 3), (1, 3), (2, 4), (3, 3), (4, 1), (5, 2);
 -- UserNote
-INSERT INTO UserNote (user_id, note_id) VALUES (1, 5);
-INSERT INTO UserNote (user_id, note_id) VALUES (2, 3);
-INSERT INTO UserNote (user_id, note_id) VALUES (3, 1);
-INSERT INTO UserNote (user_id, note_id) VALUES (4, 2);
-INSERT INTO UserNote (user_id, note_id) VALUES (5, 3);
-INSERT INTO UserNote (user_id, note_id) VALUES (1, 3);
-INSERT INTO UserNote (user_id, note_id) VALUES (2, 4);
-INSERT INTO UserNote (user_id, note_id) VALUES (3, 3);
-INSERT INTO UserNote (user_id, note_id) VALUES (4, 1);
-INSERT INTO UserNote (user_id, note_id) VALUES (5, 2);
+INSERT INTO UserNote (user_id, note_id)
+  VALUES (1, 5), (2, 3), (3, 1), (4, 2), (5, 3), (1, 3), (2, 4), (3, 3), (4, 1), (5, 2);
 
 -- Fetch the row from User table based on Id and Password.
 SELECT * FROM user WHERE id = 3 and password = 'secreto345';
@@ -181,44 +145,36 @@ UPDATE note SET note_title = 'Pocas Penas y Pocos Dolores',
             WHERE note_id = 1;
 
 -- Fetch all the Notes from the Note table by a particular User.
-SELECT * FROM note WHERE user_id = 3;
+SELECT a.*
+  FROM UserNote AS c INNER JOIN user AS b ON b.user_id = c.user_id
+                     INNER JOIN note AS a ON a.note_id = c.note_id
+  WHERE b.user_name = 'Ricardo Massaglia';
 
 -- Fetch all the Notes from the Note table for a particular Category.
 SELECT a.*
-FROM note AS a, NoteCategory AS b
-WHERE a.note_id = b.note_id
-AND b.category_id = 2;
+  FROM NoteCategory AS c INNER JOIN category AS b ON b.category_id = c.category_id
+                         INNER JOIN note AS a ON a.note_id = c.note_id
+  WHERE b.category_name = 'Sentimientos';
 
 -- Fetch all the reminder details for a given note id.
-SELECT a.*
-FROM Reminder AS a, NoteReminder AS b
-WHERE a.reminder_id = b.reminder_id
-AND b.note_id = 4;
+SELECT b.*
+  FROM NoteReminder AS c INNER JOIN reminder AS b ON b.reminder_id = c.reminder_id
+  WHERE c.note_id = 4;
 
 -- Fetch the reminder details for a given reminder id.
 SELECT * FROM reminder WHERE reminder_id = 3;
 
 -- Write a query to create a new Note from particular User (Use Note and UserNote tables - insert statement).
 INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-  SELECT b.note_title, b.note_content, b.note_status, CURRENT_TIMESTAMP() AS note_creation_date
-  FROM note AS b, (
-          SELECT max(a.note_id) AS newNote_id
-          FROM UserNote AS a
-          WHERE a.user_id = 3) AS c
-  WHERE b.note_id = c.newNote_id;
-INSERT INTO UserNote (user_id, note_id)
-SELECT 3 AS user_id, LAST_INSERT_ID() AS note_id;
+  OUTPUT 3, INSERTED.note_id
+  INTO UserNote (user_id, note_id)
+  VALUES ('Chemics', 'Exothermic Reactions', 'pending', CURRENT_TIMESTAMP());
 
 -- Write a query to create a new Note from particular User to particular Category(Use Note and NoteCategory tables - insert statement)
 INSERT INTO note (note_title, note_content, note_status, note_creation_date)
-  SELECT b.note_title, b.note_content, b.note_status, CURRENT_TIMESTAMP() AS note_creation_date
-  FROM note AS b, (
-          SELECT max(a.note_id) AS newNote_id
-          FROM NoteCategory AS a
-          WHERE a.category_id = 3) AS c
-  WHERE b.note_id = c.newNote_id;
-INSERT INTO UserNote (note_id, category_id)
-SELECT LAST_INSERT_ID() AS note_id, 3 AS category_id;
+  OUTPUT INSERTED.note_id, 3
+  INTO NoteCategory (note_id, category_id)
+  VALUES ('Astronomy', 'Solar System', 'in-progress', CURRENT_TIMESTAMP());
 
 -- Write a query to set a reminder for a particular note (Use Reminder and NoteReminder tables - insert statement)
 INSERT INTO reminder (reminder_name, reminder_descr, reminder_type, reminder_creation_date, reminder_creator)
