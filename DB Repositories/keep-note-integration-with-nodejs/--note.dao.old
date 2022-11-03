@@ -42,8 +42,10 @@ Note.findById = (id, result) => {
   let txt =
       'SELECT a.*, c.*, e.* ' +
          'FROM note AS a ' +
-           'INNER JOIN category AS c ON c.category_id = a.category_id ' +
-           'INNER JOIN reminder AS e ON e.reminder_id = a.reminder_id ' +
+           'INNER JOIN NoteCategory AS b ON b.note_id = a.note_id ' +
+           'INNER JOIN category AS c ON c.category_id = b.category_id ' +
+           'INNER JOIN NoteReminder AS d ON d.note_id = a.note_id ' +
+           'INNER JOIN reminder AS e ON e.reminder_id = d.reminder_id ' +
          `WHERE a.note_id = ${id}`;
    sql.query(txt, (err, res) => {
      if(err) {
@@ -70,8 +72,10 @@ Note.getAll = (result) => {
   let txt =
       'SELECT a.*, c.*, e.* ' +
          'FROM note AS a ' +
-           'INNER JOIN category AS c ON c.category_id = a.category_id ' +
-           'INNER JOIN reminder AS e ON e.reminder_id = a.reminder_id';
+           'INNER JOIN NoteCategory AS b ON b.note_id = a.note_id ' +
+           'INNER JOIN category AS c ON c.category_id = b.category_id ' +
+           'INNER JOIN NoteReminder AS d ON d.note_id = a.note_id ' +
+           'INNER JOIN reminder AS e ON e.reminder_id = d.reminder_id';
    sql.query(txt, (err, res) => {
      if(err) {
        console.log('error: ', err);

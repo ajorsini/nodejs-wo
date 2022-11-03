@@ -1,19 +1,31 @@
 const noteService = require("../service/note.service.js");
 
 /* Call the create method of noteService object and return the result back*/
-exports.create = null;
+exports.create = (newNote, done) => {
+  noteService.create(newNote, done);
+};
 
 /* Call the getAll method of noteService object and return the result back */
-exports.findAll = null;
+exports.findAll = (done) => {
+  noteService.getAll(done);
+};
 
 /* Call the findById method of noteService object and return the result back */
-exports.findOne = null;
+exports.findOne = (id, done) => {
+  noteService.findById(id, done);
+};
 
 /* Call the updateById method of noteService object and return the result back */
-exports.update = null;
+exports.update = (id, note, done) => {
+  noteService.updateById(id, note, done);
+};
 
 /* Call the remove method of noteService object and return the result back */
-exports.delete = null;
+exports.delete = (id, done) => {
+  noteService.remove(id, done);
+};
 
 /* Call the removeAll method of noteService object and return the result back */
-exports.deleteAll = null;
+exports.deleteAll = (done) => {
+  noteService.removeAll(done);
+};
